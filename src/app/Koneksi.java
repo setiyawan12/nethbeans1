@@ -13,6 +13,7 @@ public class Koneksi {
             ds.setPassword("");
             ds.setServerName("localhost");
             ds.setDatabaseName("perpustakaan");
+            ds.setServerTimezone("Asia/Jakarta");
             ds.setPortNumber(3306);
             Connection c = ds.getConnection();
             return c;

@@ -7,9 +7,15 @@ package app;
 
 import java.awt.Color;
 import java.awt.Frame;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import keeptoo.Drag;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -42,9 +48,9 @@ public class Login extends javax.swing.JFrame {
         kGradientPanel1 = new keeptoo.KGradientPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txUsername = new javax.swing.JTextField();
+        txtUsername = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        txtPassword = new javax.swing.JPasswordField();
         kButton1 = new keeptoo.KButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -56,24 +62,29 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("USERNAME");
 
-        txUsername.setBackground(new Color (0,0,0,0));
-        txUsername.setForeground(new java.awt.Color(51, 255, 255));
-        txUsername.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        txUsername.setOpaque(false);
+        txtUsername.setBackground(new Color (0,0,0,0));
+        txtUsername.setForeground(new java.awt.Color(51, 255, 255));
+        txtUsername.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        txtUsername.setOpaque(false);
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("PASSWORD");
 
-        jPasswordField1.setBackground(new Color (0,0,0,0));
-        jPasswordField1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        jPasswordField1.setOpaque(false);
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+        txtPassword.setBackground(new Color (0,0,0,0));
+        txtPassword.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        txtPassword.setOpaque(false);
+        txtPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
+                txtPasswordActionPerformed(evt);
             }
         });
 
         kButton1.setText("LOGIN");
+        kButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                kButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
@@ -88,9 +99,9 @@ public class Login extends javax.swing.JFrame {
                             .addGap(130, 130, 130)
                             .addComponent(jLabel3))
                         .addComponent(jLabel2)
-                        .addComponent(txUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel1)
-                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(kGradientPanel1Layout.createSequentialGroup()
                             .addGap(100, 100, 100)
                             .addComponent(kButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -106,13 +117,13 @@ public class Login extends javax.swing.JFrame {
                     .addGap(52, 52, 52)
                     .addComponent(jLabel2)
                     .addGap(0, 0, 0)
-                    .addComponent(txUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(19, 19, 19)
                     .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel1)
                         .addGroup(kGradientPanel1Layout.createSequentialGroup()
                             .addGap(11, 11, 11)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGap(70, 70, 70)
                     .addComponent(kButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
@@ -132,9 +143,17 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
+    }//GEN-LAST:event_txtPasswordActionPerformed
+
+    private void kButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kButton1ActionPerformed
+        try {
+            prosesLogin();
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_kButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -177,9 +196,69 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPasswordField jPasswordField1;
     private keeptoo.KButton kButton1;
     private keeptoo.KGradientPanel kGradientPanel1;
-    private javax.swing.JTextField txUsername;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
+
+        public static String md5(String data){
+        String hashed = "";
+        try {
+            MessageDigest md5 = MessageDigest.getInstance("MD5");
+            md5.update(data.getBytes()); 
+            byte[] byteData = md5.digest();
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < byteData.length; i++) {
+                sb.append(Integer.toString((byteData[i] & 0xff) + 
+                        0x100, 16).substring(1));
+            }
+            hashed = sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+        }
+        return hashed;
+    }
+    
+    private void prosesLogin() throws SQLException {
+        String user = txtUsername.getText();
+        char[] pass = txtPassword.getPassword();
+        if(user.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Username Kosong");
+            txtUsername.requestFocus();
+            
+        }else if(pass.length ==0){
+                        JOptionPane.showMessageDialog(this, "password Kosong");
+            txtUsername.requestFocus();
+        }else{
+            String password=new String(pass);
+            String md5_pass = md5(password);
+            
+            try {
+            Connection c = Koneksi.MySQL();
+            Statement st = c.createStatement();
+                String q = "SELECT * FROM tb_admin WHERE username='"+user+"' AND password='"+md5_pass+"'";
+                ResultSet rs = st.executeQuery(q);
+                int n=0;
+                while (rs.next()){
+                    String u = rs.getNString("username");
+                    String p = rs.getString("password");
+                    n++;
+                }
+                
+                if(n==0){
+                 JOptionPane.showMessageDialog(this, "username/password salah");
+                 txtUsername.requestFocus();
+                }else{
+                    
+                    HalamanUtama h = new HalamanUtama();
+                    h.setExtendedState(Frame.MAXIMIZED_BOTH);
+                    this.setVisible(false);
+                    h.setVisible(true);
+                }
+                
+                        
+                        } catch (SQLException e) {
+            }
+        }
+    }
 }
