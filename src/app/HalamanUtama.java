@@ -5,6 +5,9 @@
  */
 package app;
 
+import java.awt.BorderLayout;
+import javax.swing.JPanel;
+
 /**
  *
  * @author setiyawan
@@ -27,21 +30,78 @@ public class HalamanUtama extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelInduk = new javax.swing.JPanel();
+        kGradientPanel1 = new keeptoo.KGradientPanel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        miTambahBuku = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        miLihatBuku = new javax.swing.JMenuItem();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
+        miTambahSup = new javax.swing.JMenuItem();
+        jSeparator4 = new javax.swing.JPopupMenu.Separator();
+        miLihatsup = new javax.swing.JMenuItem();
+        jSeparator5 = new javax.swing.JPopupMenu.Separator();
+        miLogout = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 758, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 476, Short.MAX_VALUE)
-        );
+        panelInduk.setLayout(new java.awt.BorderLayout());
+        panelInduk.add(kGradientPanel1, java.awt.BorderLayout.CENTER);
+
+        getContentPane().add(panelInduk, java.awt.BorderLayout.CENTER);
+
+        jMenu1.setText("File");
+
+        miTambahBuku.setText("Tambah Data Buku");
+        miTambahBuku.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miTambahBukuActionPerformed(evt);
+            }
+        });
+        jMenu1.add(miTambahBuku);
+        jMenu1.add(jSeparator2);
+
+        miLihatBuku.setText("Lihat Data Buku");
+        jMenu1.add(miLihatBuku);
+        jMenu1.add(jSeparator3);
+
+        miTambahSup.setText("Tambah Data Supplay");
+        miTambahSup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miTambahSupActionPerformed(evt);
+            }
+        });
+        jMenu1.add(miTambahSup);
+        jMenu1.add(jSeparator4);
+
+        miLihatsup.setText("Lihat Data Supplay");
+        jMenu1.add(miLihatsup);
+        jMenu1.add(jSeparator5);
+
+        miLogout.setText("Menu LOGOUT");
+        jMenu1.add(miLogout);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void miTambahBukuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miTambahBukuActionPerformed
+        // TODO add your handling code here:
+        addRemove(new TambahBuku());
+
+    }//GEN-LAST:event_miTambahBukuActionPerformed
+
+    private void miTambahSupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miTambahSupActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_miTambahSupActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +139,29 @@ public class HalamanUtama extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JPopupMenu.Separator jSeparator4;
+    private javax.swing.JPopupMenu.Separator jSeparator5;
+    private keeptoo.KGradientPanel kGradientPanel1;
+    private javax.swing.JMenuItem miLihatBuku;
+    private javax.swing.JMenuItem miLihatsup;
+    private javax.swing.JMenuItem miLogout;
+    private javax.swing.JMenuItem miTambahBuku;
+    private javax.swing.JMenuItem miTambahSup;
+    private static javax.swing.JPanel panelInduk;
     // End of variables declaration//GEN-END:variables
+
+    private static void addRemove(JPanel view){
+        if(panelInduk.getComponentCount() > 0){
+            panelInduk.removeAll();
+        }
+        panelInduk.add(view, BorderLayout.CENTER);
+        panelInduk.revalidate();
+        panelInduk.repaint();
+        
+    }
 }
